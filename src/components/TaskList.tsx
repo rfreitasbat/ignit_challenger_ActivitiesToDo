@@ -16,14 +16,35 @@ export function TaskList() {
 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
+    if(newTaskTitle != '') {
+      const newTask = {
+        id: Math.random(),
+        title: newTaskTitle,
+        isComplete: false
+      }
+      setTasks([...tasks, newTask ]);
+      setNewTaskTitle('');
+    }
   }
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
+    const completedTask = tasks.map(task => task.id == id ? {
+      ...task,
+      isComplete: !task.isComplete
+    } : task);
+
+    setTasks(completedTask);
   }
 
   function handleRemoveTask(id: number) {
     // Remova uma task da listagem pelo ID
+    const filteredTasks = tasks.filter(task => task.id != id)
+
+    setTasks(filteredTasks);
+
+    //Tive que assitir ao video para conseguir fazer, mas não entendi em que processo o task está sendo removida
+
   }
 
   return (
